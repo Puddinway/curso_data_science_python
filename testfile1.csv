@@ -1,0 +1,30 @@
+﻿country,iso_code,date,total_vaccinations,people_vaccinated,people_fully_vaccinated,daily_vaccinations_raw,daily_vaccinations,total_vaccinations_per_hundred,people_vaccinated_per_hundred,people_fully_vaccinated_per_hundred,daily_vaccinations_per_million,vaccines,source_name,source_website
+Afghanistan,AFG,3/16/2021,54000,54000,,,2862,0.14,0.14,,72,"Johnson&Johnson, Oxford/AstraZeneca, Pfizer/BioNTech, Sinopharm/Beijing",World Health Organization,https://covid19.who.int/
+Albania,ALB,1/19/2021,483,483,,36,51,0.02,0.02,,18,"Oxford/AstraZeneca, Pfizer/BioNTech, Sinovac, Sputnik V",Ministry of Health,https://shendetesia.gov.al/vaksinimi-anticovid-2754244-vaksinime/
+Albania,ALB,1/20/2021,519,519,,36,47,0.02,0.02,,16,"Oxford/AstraZeneca, Pfizer/BioNTech, Sinovac, Sputnik V",Ministry of Health,https://shendetesia.gov.al/vaksinimi-anticovid-2754244-vaksinime/
+Algeria,DZA,2/18/2021,,,,,3748,,,,84,"Oxford/AstraZeneca, Sinopharm/Beijing, Sinovac, Sputnik V",World Health Organization,https://covid19.who.int/
+Algeria,DZA,2/19/2021,75000,75000,,,3748,0.17,0.17,,84,"Oxford/AstraZeneca, Sinopharm/Beijing, Sinovac, Sputnik V",World Health Organization,https://covid19.who.int/
+Algeria,DZA,2/20/2021,,,,,6409,,,,144,"Oxford/AstraZeneca, Sinopharm/Beijing, Sinovac, Sputnik V",World Health Organization,https://covid19.who.int/
+Andorra,AND,3/8/2021,3611,2439,1172,,108,4.67,3.15,1.52,1396,"Moderna, Oxford/AstraZeneca, Pfizer/BioNTech",World Health Organization,https://covid19.who.int/
+Andorra,AND,3/9/2021,,,,,186,,,,2405,"Moderna, Oxford/AstraZeneca, Pfizer/BioNTech",World Health Organization,https://covid19.who.int/
+Andorra,AND,3/10/2021,4914,3650,1264,,264,6.35,4.72,1.63,3413,"Moderna, Oxford/AstraZeneca, Pfizer/BioNTech",World Health Organization,https://covid19.who.int/
+Angola,AGO,3/18/2021,49000,49000,,,4283,0.14,0.14,,126,Oxford/AstraZeneca,World Health Organization,https://covid19.who.int/
+Angola,AGO,3/19/2021,,,,,4577,,,,135,Oxford/AstraZeneca,World Health Organization,https://covid19.who.int/
+Angola,AGO,3/20/2021,,,,,4870,,,,144,Oxford/AstraZeneca,World Health Organization,https://covid19.who.int/
+Anguilla,AIA,2/13/2021,1341,1341,,,149,8.87,8.87,,9851,"Oxford/AstraZeneca, Pfizer/BioNTech",World Health Organization,https://covid19.who.int/
+Anguilla,AIA,2/14/2021,2762,2762,,1421,331,18.26,18.26,,21884,"Oxford/AstraZeneca, Pfizer/BioNTech",World Health Organization,https://covid19.who.int/
+Anguilla,AIA,2/15/2021,,,,,323,,,,21355,"Oxford/AstraZeneca, Pfizer/BioNTech",World Health Organization,https://covid19.who.int/
+Antigua and Barbuda,ATG,4/14/2021,27592,27592,,,51,27.95,27.95,,517,"Oxford/AstraZeneca, Pfizer/BioNTech, Sputnik V",Ministry of Health,https://covid19.gov.ag
+Antigua and Barbuda,ATG,4/15/2021,,,,,102,,,,1033,"Oxford/AstraZeneca, Pfizer/BioNTech, Sputnik V",Ministry of Health,https://covid19.gov.ag
+Antigua and Barbuda,ATG,4/16/2021,28414,28414,,,154,28.78,28.78,,1560,"Oxford/AstraZeneca, Pfizer/BioNTech, Sputnik V",Ministry of Health,https://covid19.gov.ag
+Antigua and Barbuda,ATG,4/17/2021,28639,28639,,225,179,29.01,29.01,,1813,"Oxford/AstraZeneca, Pfizer/BioNTech, Sputnik V",Ministry of Health,https://covid19.gov.ag
+Argentina,ARG,3/18/2021,3121825,2533753,588039,138910,109544,6.85,5.56,1.29,2402,"CanSino, Moderna, Oxford/AstraZeneca, Pfizer/BioNTech, Sinopharm/Beijing, Sputnik V",Ministry of Health,https://covidstats.com.ar/
+Argentina,ARG,3/19/2021,3247967,2623836,624098,126142,104478,7.12,5.75,1.37,2291,"CanSino, Moderna, Oxford/AstraZeneca, Pfizer/BioNTech, Sinopharm/Beijing, Sputnik V",Ministry of Health,https://covidstats.com.ar/
+Argentina,ARG,3/20/2021,3298824,2661912,636879,50857,105119,7.23,5.84,1.4,2305,"CanSino, Moderna, Oxford/AstraZeneca, Pfizer/BioNTech, Sinopharm/Beijing, Sputnik V",Ministry of Health,https://covidstats.com.ar/
+Armenia,ARM,5/15/2021,,,,,1081,,,,364,"Moderna, Oxford/AstraZeneca, Sinopharm/Beijing, Sinovac, Sputnik V",World Health Organization,https://covid19.who.int/
+Armenia,ARM,5/16/2021,19249,19249,,,1217,0.65,0.65,,410,"Moderna, Oxford/AstraZeneca, Sinopharm/Beijing, Sinovac, Sputnik V",World Health Organization,https://covid19.who.int/
+Armenia,ARM,5/17/2021,,,,,1193,,,,402,"Moderna, Oxford/AstraZeneca, Sinopharm/Beijing, Sinovac, Sputnik V",World Health Organization,https://covid19.who.int/
+Armenia,ARM,5/18/2021,,,,,1168,,,,394,"Moderna, Oxford/AstraZeneca, Sinopharm/Beijing, Sinovac, Sputnik V",World Health Organization,https://covid19.who.int/
+Aruba,ABW,4/28/2021,74668,53813,20855,,1761,69.66,50.2,19.46,16428,Pfizer/BioNTech,Government of Aruba,https://www.government.aw
+Aruba,ABW,4/29/2021,75846,54095,21751,1178,1651,70.76,50.46,20.29,15402,Pfizer/BioNTech,Government of Aruba,https://www.government.aw
+Aruba,ABW,4/30/2021,76865,54306,22559,1019,1274,71.71,50.66,21.04,11885,Pfizer/BioNTech,Government of Aruba,https://www.government.aw
