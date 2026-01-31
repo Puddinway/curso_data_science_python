@@ -1,148 +1,147 @@
 import pandas as pd			#Pandas
-from pathlib import Path 	#pathing de libreria paths
+import seaborn as sb
+import numpy as np
+import matplotlib.pyplot as plt
 
-def prints (df): ##Debuging para poder ver que funcionen los dfs
-    print("\nEstructura general del DataFrame:") #muestra estructura y tipos de datos
-    print(df.info())
-    print("\nPrimeras filas (referencia):")	#Se agrega como referencia para probar que muestre la info correcta
-    print(df.head())
+###
 
 
-def sums_OS(df): #Convierte los valores de conteo a porcentajes
-    total=sum(df)
-    for col in range (len(df)):
-        df[col]=(df[col]/total)*100
-        
-    return df
-#llamada de archivos para dfs
-csv_path_test = "Test.csv"
-csv_path_test2 = "Test2.csv"
-csv_path_train = "Train.csv"
-csv_path_train2 = "Train2.csv"
-
-dftest = pd.read_csv(
-    csv_path_test,
-)
-dftest2 = pd.read_csv(
-    csv_path_test2,
-)
-dftrain = pd.read_csv(
-    csv_path_train,
-)
-
-dftrain2 = pd.read_csv(
-    csv_path_train2,
-)
-
-##da valor 'no registrado' a valores faltantes de OS ##
-dftest2[[" Computer_OS"," Mobile_OS"]] = dftest2[[" Computer_OS"," Mobile_OS"]].fillna('no registrado')
-dftrain2[[" Computer_OS"," Mobile_OS"]] = dftrain2[[" Computer_OS"," Mobile_OS"]].fillna('no registrado')
 
 
-##imprime muestras del codigo##
-prints(dftest)
-prints(dftest2)
-prints(dftrain)
-prints(dftrain2)
 
-##Join de test2/train2 con test/train para juntar toda la informacion
-dftestjoin = dftest2.join(dftest.set_index('Employee_ID'),on='Employee_ID')
-dftrainjoin = dftrain2.join(dftrain.set_index('Employee_ID'),on='Employee_ID')
-
-##concat de toda la informacion para tener un solo data frame total para realizar conteos
-dffinal=pd.concat([dftestjoin,dftrainjoin])
-
-#dffinal es el df con toda la informacion junta
-
-##Group by para realizar conteo de cada OS como requerid0
-PCOScount = dffinal.groupby(' Computer_OS').size()
-MBOScount = dffinal.groupby(" Mobile_OS").size()
-
-#debugging
-print(PCOScount.head())
-print(MBOScount.head())
-
-PCOSperc= sums_OS(PCOScount)
-MBOSperc= sums_OS(MBOScount)
-
-#Cambia la serie del join de vuelta a un df
-PCOSprint = PCOSperc.reset_index()
-MBOSprint = MBOSperc.reset_index()
+###
 
 
-#debugging
-print(PCOSprint.head())
-print(MBOSprint.head())
+#lectura de archivos y creacion de dfs
+csv_path_happy = "Happiness_report.csv"
+csv_path_meta = "Metadata.csv"
+dfhappy = pd.read_csv(csv_path_happy)
+dfmeta = pd.read_csv(csv_path_meta)
+print(dfhappy.head())
 
-#divide el df por OS
-windowsdf = dffinal.loc[dffinal[' Computer_OS']=='Windows']
-macosdf = dffinal.loc[dffinal[' Computer_OS']=='MacOS']
-linuxdf = dffinal.loc[dffinal[' Computer_OS']=='Linux']
-noregistradodf = dffinal.loc[dffinal[' Computer_OS']=='no registrado']
-androiddf = dffinal.loc[dffinal[' Mobile_OS']=='Android']
-iosdf = dffinal.loc[dffinal[' Mobile_OS']=='iOS']
-noregistradombdf = dffinal.loc[dffinal[' Mobile_OS']=='no registrado']
-
-
-#mean de cada edad
-WOSaverageage = windowsdf.loc[:,'Age'].mean()
-MOSaverageage = macosdf.loc[:,'Age'].mean()
-LOSaverageage = linuxdf.loc[:,'Age'].mean()
-NRaverageage = noregistradodf.loc[:,'Age'].mean()
-ANDaverageage = androiddf.loc[:,'Age'].mean() #se agregaron opciones de mobil pero no se ocupan
-iOSaverageage = iosdf.loc[:,'Age'].mean()
-NRMaverageage = noregistradombdf.loc[:,'Age'].mean()
-
-#genera df para imprimir la edad promedio 
-OSagedf=pd.DataFrame({'PC OS':['Windows', 'MacOS', 'Linux', 'no registrado PC'], 'Edad promedio de uso':[WOSaverageage, MOSaverageage, LOSaverageage, NRaverageage]})
-print(OSagedf.head()) #debugging
+#aisla a mexico en su df y pone country or region como index
+mexicodatadf = dfhappy.loc[dfhappy['Country or region']=='Mexico']
+mexicodatadf = mexicodatadf.set_index('Country or region')
+print(mexicodatadf)
 
 
-#mean de cada nivel de educacion
-WOSaverageedu = windowsdf.loc[:,'Education_Level'].mean()
-MOSaverageedu = macosdf.loc[:,'Education_Level'].mean()
-LOSaverageedu = linuxdf.loc[:,'Education_Level'].mean()
-NRaverageedu = noregistradodf.loc[:,'Education_Level'].mean()
-ANDaverageedu = androiddf.loc[:,'Education_Level'].mean() #se agregaron opciones de mobil pero no se ocupan
-iOSaverageedu = iosdf.loc[:,'Education_Level'].mean()
-NRMaverageedu = noregistradombdf.loc[:,'Education_Level'].mean()
+#histograma
+sb.histplot(data = dfhappy, x='Score',bins=10).set_title('Frequencia de indice de felizidad')
+plt.text(x=6.595, y=12.5, s='Mexico', color='red', ha='center')
 
-#genera df para imprimir el nivel de educacion promedio
-OSedudf=pd.DataFrame({'PC OS':['Windows', 'MacOS', 'Linux', 'no registrado PC'], 'Nivel de educacion promedio':[WOSaverageedu, MOSaverageedu, LOSaverageedu, NRaverageedu]})
-print(OSedudf.head())#debugging
+#boxplot
+sb.catplot(kind='box', x ='Healthy life expectancy', data=dfhappy)
+plt.text(x=0.861, y=-0.1,s='Mexico', color='red', ha='center')
+
+#grafica circular
+dfmexico=mexicodatadf.drop(['Overall rank', 'Score'], axis=1)
+dfmexico = dfmexico.transpose()
+print(dfmexico.head())
+dfmexico.plot.pie(y='Mexico',figsize=(5,5),legend=False).set_title('Factores de felizidad de Mexico')
+
+#Grafica circular de 5 paises
+dfpaises = dfhappy.loc[(dfhappy['Country or region']=='Finland') | (dfhappy['Country or region']=='Mexico') | (dfhappy['Country or region']== 'South Sudan') | (dfhappy['Country or region']== 'United States') | (dfhappy['Country or region']=='Japan') ]
+dfpaises = dfpaises.set_index('Country or region')
+dfpaises = dfpaises.drop(['Overall rank', 'Score'], axis=1)
+dfpaises = dfpaises.transpose()
+print(dfpaises)
+
+#Subplots
+fig=plt.figure(figsize=(20,20))
+fig.suptitle('Evaluacion de felicidad de varios paises', fontsize=18)
+#Finland
+ax1=fig.add_subplot(231)
+dfpaises.plot.pie(y='Finland',figsize=(5,5),ax=ax1,legend=False)
+ax1.set_title('Finland')
+
+#Mexico
+ax2=fig.add_subplot(232)
+dfpaises.plot.pie(y='Mexico',figsize=(5,5),ax=ax2,legend=False)
+ax2.set_title('Mexico')
+
+#South Sudan
+ax3=fig.add_subplot(233)
+dfpaises.plot.pie(y='South Sudan',figsize=(5,5),ax=ax3,legend=False)
+ax3.set_title('South Sudan')
+
+#United States
+ax4=fig.add_subplot(234)
+dfpaises.plot.pie(y='United States',figsize=(5,5),ax=ax4,legend=False)
+ax4.set_title('United States')
+
+#Japan
+ax5=fig.add_subplot(236)
+dfpaises.plot.pie(y='Japan',figsize=(5,5),ax=ax5,legend=False)
+ax5.set_title('Japan')
+
+plt.show()
 
 
-#suma de cantidad de tickets por OS de escritorio
-WOStickets = windowsdf.loc[:,' Computer_tickets'].sum()
-MOStickets = macosdf.loc[:,' Computer_tickets'].sum()
-LOStickets = linuxdf.loc[:,' Computer_tickets'].sum()
-NRtickets = noregistradodf.loc[:,' Computer_tickets'].sum()
+#Scatter Plot
+fig=plt.figure(figsize=(20,20))
+fig.suptitle('Evaluacion de valores para felicidad', fontsize=18)
 
-OSticketdf=pd.DataFrame({'PC OS':['Windows', 'MacOS', 'Linux', 'no registrado PC'], 'Numero de Tickets': [WOStickets, MOStickets, LOStickets, NRtickets]})
-print(OSticketdf.head())#debugging
+ax1=fig.add_subplot(231)
+ax1.scatter(x=dfhappy['GDP per capita'],y=dfhappy['Score'])
+ax1.set_title('GDP per capita')
 
-'''
-#debugging
-salida_excel = Path("resultadosReto.xlsx") ##Salida para debuging
+ax2=fig.add_subplot(232)
+ax2.scatter(x=dfhappy['Social support'],y=dfhappy['Score'])
+ax2.set_title('Social support')
 
-with pd.ExcelWriter(salida_excel, engine="openpyxl") as writer:
-    dftest.to_excel(writer, sheet_name="test", index=False)
-    dftest2.to_excel(writer, sheet_name="test2", index=False)
-    dftrain.to_excel(writer, sheet_name="train", index=False)
-    dftrain2.to_excel(writer, sheet_name="train2", index=False)
-    dftestjoin.to_excel(writer, sheet_name="jointest", index=False)
-    dftrainjoin.to_excel(writer, sheet_name="jointrain", index=False)
-    dffinal.to_excel(writer, sheet_name="finaljoin", index=False)
-'''
- 
- 
-#salida finala excel
-salida_excel2=Path("Resulatados_finales_reto.xlsx")
-with pd.ExcelWriter(salida_excel2, engine="openpyxl") as writer:
-    PCOSprint.to_excel(writer, sheet_name="PC_OS_porcentajes", index=False)
-    MBOSprint.to_excel(writer, sheet_name="MOBILE_OS_porcentajes", index=False)
-    OSagedf.to_excel(writer, sheet_name="Promedio_de_edad_por_OS", index=False)
-    OSedudf.to_excel(writer, sheet_name="Promedio_de_educacion_por_OS", index=False)
-    OSticketdf.to_excel(writer, sheet_name="Cantidad_de_tickets_por_OS", index=False)
+ax3=fig.add_subplot(233)
+ax3.scatter(x=dfhappy['Healthy life expectancy'],y=dfhappy['Score'])
+ax3.set_title('Healthy life expectancy')
+
+ax4=fig.add_subplot(234)
+ax4.scatter(x=dfhappy['Freedom to make life choices'],y=dfhappy['Score'])
+ax4.set_title('Freedom to make life choices')
+
+ax5=fig.add_subplot(235)
+ax5.scatter(x=dfhappy['Generosity'],y=dfhappy['Score'])
+ax5.set_title('Generosity')
+
+ax6=fig.add_subplot(236)
+ax6.scatter(x=dfhappy['Perceptions of corruption'],y=dfhappy['Score'])
+ax6.set_title('Perceptions of corruption')
+
+plt.show()
+
+#Heat Map
+heatmapdf = dfhappy.drop('Overall rank',axis=1)
+heatmapdf = heatmapdf.set_index('Country or region')
+sb.heatmap(round(heatmapdf.corr(),2),annot=True).set_title('Heatmap de relacion de parametros')
+plt.show()
+
+
+#Join de las 2 tablas para filtrar por region
+dfregions = dfhappy.set_index('Country or region').join(dfmeta.set_index('TableName'), how='left', on='Country or region')
+LATAM = dfregions.loc[dfregions['Region']=='Latin America & Caribbean']
+LATAMav = LATAM.loc[:,'Score'].mean()
+
+#Obtencion de average de cada region
+Europe = dfregions.loc[dfregions['Region']=='Europe & Central Asia']
+Europeav= Europe.loc[:,'Score'].mean()
+
+EAsia = dfregions.loc[dfregions['Region']=='East Asia & Pacific']
+EAsiaav = EAsia.loc[:,'Score'].mean()
+
+MidE = dfregions.loc[dfregions['Region']=='Middle East & North Africa']
+MidEav = MidE.loc[:,'Score'].mean()
+
+NA = dfregions.loc[dfregions['Region']=='North America']
+NAav = NA.loc[:,'Score'].mean()
+
+SAsia = dfregions.loc[dfregions['Region']=='South Asia']
+SAsiaav = SAsia.loc[:,'Score'].mean()
+
+Sahara = dfregions.loc[dfregions['Region']=='Sub-Saharan Africa']
+Saharaav = Sahara.loc[:,'Score'].mean()
+
+RegionHappy = pd.DataFrame({'Region':['Latin America & Caribbean','Europe & Central Asia','East Asia & Pacific','Middle East & North Africa','North America','South Asia','Sub-Saharan Africa'],'Average Happyness':[LATAMav,Europeav,EAsiaav,MidEav,NAav,SAsiaav,Saharaav]})
+print(RegionHappy)
+
+RegionHappy.plot(x='Region',y='Average Happyness', kind='bar', title='Felicidad Promedio por Region', rot=45)
+plt.show()
 
 
